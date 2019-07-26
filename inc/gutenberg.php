@@ -72,6 +72,13 @@ function laura_gutenberg_blocks() {
       'editor_script' => 'custom-cta-js'
     )
   );
+
+  register_block_type(
+    'laura/section',
+    array(
+      'editor_script' => 'custom-cta-js'
+    )
+  );
 }
 
 add_action('init', 'laura_gutenberg_blocks');

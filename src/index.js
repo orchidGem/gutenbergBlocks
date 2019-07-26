@@ -12,18 +12,26 @@ registerBlockType('laura/custom-cta', {
 
   // custom attributes
   attributes: {
-
+    author: {
+      type: 'string'
+    }
   },
-
-  // custom functions
 
   // built-in functions
-  edit() {
-    return <div>Hello World</div>
+  edit( { attributes, setAttributes } ) {
+
+    function updateAuthor(event) {
+      setAttributes({
+        author: event.target.value
+      })
+    }
+
+
+    return <input value={attributes.author} onChange={ updateAuthor } type="text" />
   },
 
-  save() {
-
+  save( {attributes} ) {
+    return <p>Author Name: {attributes.author}</p>
   }
 
 

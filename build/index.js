@@ -238,7 +238,8 @@ registerBlockType('laura/section', {
       className: className
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
       allowedBlocks: ['core/paragraph', 'core/image'],
-      template: TEMPLATE
+      template: TEMPLATE,
+      templateLock: "all"
     }))];
   },
   save: function save(props) {

@@ -28,6 +28,7 @@ registerBlockType('laura/section', {
         <InnerBlocks
                       allowedBlocks={['core/paragraph', 'core/image']}
                       template={TEMPLATE}
+                      templateLock = "all"
         />
       </div>
     ]

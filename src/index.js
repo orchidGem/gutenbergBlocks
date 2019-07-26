@@ -19,7 +19,7 @@ registerBlockType('laura/custom-cta', {
 
   // built-in functions
   edit() {
-
+    return <div>Hello World</div>
   },
 
   save() {

@@ -2,6 +2,11 @@ const { registerBlockType } = wp.blocks;
 
 const {  InnerBlocks } = wp.editor;
 
+const TEMPLATE = [
+  ['core/paragraph', { placeholder: 'write text here' }],
+  ['core/image']
+];
+
 registerBlockType('laura/section', {
 
   // built-in attributes
@@ -21,7 +26,9 @@ registerBlockType('laura/section', {
     return [
       <div style={{ 'border':'1px solid black' }} className = {className}>
         <InnerBlocks
-                      allowedBlocks={['core/paragraph', 'core/image']}/>
+                      allowedBlocks={['core/paragraph', 'core/image']}
+                      template={TEMPLATE}
+        />
       </div>
     ]
   },

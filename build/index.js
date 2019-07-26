@@ -218,6 +218,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var registerBlockType = wp.blocks.registerBlockType;
 var InnerBlocks = wp.editor.InnerBlocks;
+var TEMPLATE = [['core/paragraph', {
+  placeholder: 'write text here'
+}], ['core/image']];
 registerBlockType('laura/section', {
   // built-in attributes
   title: 'Section',
@@ -234,7 +237,8 @@ registerBlockType('laura/section', {
       },
       className: className
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
-      allowedBlocks: ['core/paragraph', 'core/image']
+      allowedBlocks: ['core/paragraph', 'core/image'],
+      template: TEMPLATE
     }))];
   },
   save: function save(props) {

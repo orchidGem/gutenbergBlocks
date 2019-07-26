@@ -1,5 +1,12 @@
 const { registerBlockType } = wp.blocks;
-const { RichText } = wp.editor;
+
+const {
+  RichText,
+  InspectorControls,
+  ColorPalette
+} = wp.editor;
+
+const { PanelBody } = wp.components;
 // same as writing
 // import register from wp.blocks;
 
@@ -18,6 +25,10 @@ registerBlockType('laura/custom-cta', {
       source: 'html',
       selector: 'h2'
     },
+    titleColor: {
+      type: 'string',
+      default: 'black'
+    },
     body: {
       type: 'string',
       source: 'html',
@@ -30,6 +41,7 @@ registerBlockType('laura/custom-cta', {
 
     const {
       title,
+      titleColor,
       body
     } = attributes;
 
@@ -45,14 +57,32 @@ registerBlockType('laura/custom-cta', {
       })
     }
 
+    function onTitleColorChange(newColor) {
+      setAttributes({
+        titleColor: newColor
+      })
+    }
+
 
     return ([
+
+      <InspectorControls style={{ marginBottom: '40px' }} >
+        <PanelBody title={ 'Font Color Settings' }>
+          <p><strong>Select a Title Color:</strong></p>
+          <ColorPalette value={titleColor}
+                        onChange={onTitleColorChange}
+
+          />
+        </PanelBody>
+      </InspectorControls>,
+
       <div class="cta-container">
         <RichText key="editable"
                   tagName="h2"
                   placeholder="Your CTA Title"
                   value={ title }
                   onChange={ onChangeTitle }
+                  style={ { color: titleColor } }
         />
         <RichText key="editable"
                   tagName="p"
@@ -68,12 +98,13 @@ registerBlockType('laura/custom-cta', {
 
     const {
       title,
+      titleColor,
       body
     } = attributes;
 
     return (
       <div class="cta-container">
-        <h2>{ title }</h2>
+        <h2 style={{ color: titleColor }}>{ title }</h2>
         <RichText.Content tagName="p"
                           value= { body }
         />

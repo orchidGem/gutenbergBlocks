@@ -61,11 +61,17 @@ add_action('init', 'laura_gutenberg_font_size');
 // register all blocks here
 function laura_gutenberg_blocks() {
 
-  wp_register_script('custom-cta-js', get_template_directory_uri('./js/gutenberg-cta-block.js'), array( 'wp-blocks' ));
+  wp_register_script(
+    'custom-cta-js',
+    get_template_directory_uri() . '/js/gutenberg-cta-block.js', array( 'wp-blocks' )
+  );
 
-  register_block_type( 'laura/custom-cta', array(
-    'editor_script' => 'custom-cta-js'
-  ) );
+  register_block_type(
+    'laura/custom-cta',
+    array(
+      'editor_script' => 'custom-cta-js'
+    )
+  );
 }
 
 add_action('init', 'laura_gutenberg_blocks');

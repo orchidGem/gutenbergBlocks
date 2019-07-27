@@ -66,19 +66,21 @@ function laura_gutenberg_blocks() {
     get_template_directory_uri() . '/build/index.js', array( 'wp-blocks', 'wp-editor', 'wp-components' )
   );
 
-  register_block_type(
-    'laura/custom-cta',
-    array(
-      'editor_script' => 'custom-cta-js'
-    )
+  $blocks = array(
+    'custom-cta',
+    'section',
+    'parent',
+    'child'
   );
 
-  register_block_type(
-    'laura/section',
-    array(
-      'editor_script' => 'custom-cta-js'
-    )
-  );
+  foreach ($blocks as $key => $block) {
+    register_block_type(
+      'laura/' . $block,
+      array(
+        'editor_script' => 'custom-cta-js'
+      )
+    );
+  }
 }
 
 add_action('init', 'laura_gutenberg_blocks');

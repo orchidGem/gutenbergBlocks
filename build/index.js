@@ -71,6 +71,37 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/child.js":
+/*!**********************!*\
+  !*** ./src/child.js ***!
+  \**********************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+var registerBlockType = wp.blocks.registerBlockType;
+registerBlockType('laura/child', {
+  // built-in attributes
+  title: 'Child',
+  description: 'Child element',
+  icon: 'format-image',
+  category: 'layout',
+  parent: ['laura/parent'],
+  edit: function edit(props) {
+    var className = props.className;
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "child element")];
+  },
+  save: function save(props) {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "child element");
+  }
+});
+
+/***/ }),
+
 /***/ "./src/cta.js":
 /*!********************!*\
   !*** ./src/cta.js ***!
@@ -199,8 +230,52 @@ registerBlockType('laura/custom-cta', {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cta__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cta */ "./src/cta.js");
 /* harmony import */ var _section__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./section */ "./src/section.js");
+/* harmony import */ var _child__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./child */ "./src/child.js");
+/* harmony import */ var _parent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./parent */ "./src/parent.js");
 
 
+
+
+
+/***/ }),
+
+/***/ "./src/parent.js":
+/*!***********************!*\
+  !*** ./src/parent.js ***!
+  \***********************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+var registerBlockType = wp.blocks.registerBlockType;
+var InnerBlocks = wp.editor.InnerBlocks;
+registerBlockType('laura/parent', {
+  // built-in attributes
+  title: 'Parent',
+  description: 'Parent element',
+  icon: 'format-image',
+  category: 'layout',
+  // custom attributes
+  attributes: {},
+  edit: function edit(props) {
+    var className = props.className;
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      style: {
+        'border': '1px solid black'
+      },
+      className: className
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
+      allowedBlocks: ['laura/child', 'core/image']
+    }))];
+  },
+  save: function save(props) {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("section", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null));
+  }
+});
 
 /***/ }),
 

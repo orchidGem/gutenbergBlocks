@@ -308,6 +308,60 @@ registerBlockType('laura/dynamic', {
 
 /***/ }),
 
+/***/ "./src/dynamicBlockWithInnerBlocks.js":
+/*!********************************************!*\
+  !*** ./src/dynamicBlockWithInnerBlocks.js ***!
+  \********************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+var registerBlockType = wp.blocks.registerBlockType;
+var InnerBlocks = wp.editor.InnerBlocks;
+registerBlockType('laura/dynamicinner', {
+  // built-in attributes
+  title: 'Dynamic Block with Inner Blocks',
+  description: 'Dynamic',
+  icon: 'format-image',
+  category: 'layout',
+  // custom attributes
+  attributes: {
+    title: {
+      type: 'string'
+    }
+  },
+  edit: function edit(props) {
+    var className = props.className;
+
+    function updateTitle(e) {
+      props.setAttributes({
+        title: e.target.value
+      });
+    }
+
+    console.log(props.attributes);
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      style: {
+        'border': '1px solid black'
+      },
+      className: className
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
+      type: "text",
+      value: props.attributes.title,
+      onChange: updateTitle
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, null))];
+  },
+  save: function save(props) {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null);
+  }
+});
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -322,6 +376,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _child__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./child */ "./src/child.js");
 /* harmony import */ var _parent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./parent */ "./src/parent.js");
 /* harmony import */ var _dynamicBlock__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./dynamicBlock */ "./src/dynamicBlock.js");
+/* harmony import */ var _dynamicBlockWithInnerBlocks__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./dynamicBlockWithInnerBlocks */ "./src/dynamicBlockWithInnerBlocks.js");
+
 
 
 

@@ -92,6 +92,14 @@ function laura_gutenberg_blocks() {
       'render_callback' => 'render_posts_block'
     )
   );
+
+  register_block_type(
+    'laura/dynamicinner',
+    array(
+      'editor_script' => 'laura-blocks',
+      'render_callback' => 'render_dynamic_with_inner'
+    )
+  );
 }
 
 add_action('init', 'laura_gutenberg_blocks');
@@ -117,6 +125,21 @@ function render_posts_block( $attributes ) {
     echo "</div>";
   }
   echo "</div>";
+
+  return ob_get_clean();
+
+}
+
+function render_dynamic_with_inner( $attributes, $content ) {
+
+  ob_start();
+
+  echo "attributes: ";
+  var_dump($attributes);
+
+  echo "content: ";
+  var_dump($content);
+
 
   return ob_get_clean();
 

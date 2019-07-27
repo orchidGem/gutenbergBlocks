@@ -100,6 +100,14 @@ function laura_gutenberg_blocks() {
       'render_callback' => 'render_dynamic_with_inner'
     )
   );
+
+  register_block_type(
+    'laura/hero-banner',
+    array(
+      'editor_script' => 'laura-blocks',
+      'render_callback' => 'render_hero_banner'
+    )
+  );
 }
 
 add_action('init', 'laura_gutenberg_blocks');
@@ -140,6 +148,16 @@ function render_dynamic_with_inner( $attributes, $content ) {
   echo "content: ";
   var_dump($content);
 
+
+  return ob_get_clean();
+
+}
+
+function render_hero_banner( $attributes, $content ) {
+
+  ob_start();
+
+  include(TEMPLATEPATH . '/template-parts/blocks/hero-banner.php');
 
   return ob_get_clean();
 

@@ -362,6 +362,80 @@ registerBlockType('laura/dynamicinner', {
 
 /***/ }),
 
+/***/ "./src/hero-banner.js":
+/*!****************************!*\
+  !*** ./src/hero-banner.js ***!
+  \****************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$editor = wp.editor,
+    InnerBlocks = _wp$editor.InnerBlocks,
+    InspectorControls = _wp$editor.InspectorControls,
+    MediaUpload = _wp$editor.MediaUpload;
+var PanelBody = wp.components.PanelBody;
+registerBlockType('laura/hero-banner', {
+  // built-in attributes
+  title: 'Hero Banner',
+  description: 'Hero Banner',
+  icon: 'format-image',
+  category: 'layout',
+  // custom attributes
+  attributes: {
+    backgroundImage: {
+      type: 'string',
+      default: ''
+    }
+  },
+  edit: function edit(props) {
+    var className = props.className;
+
+    function updateBackgroundImage(image) {
+      props.setAttributes({
+        backgroundImage: image.sizes.full.url
+      });
+    }
+
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, {
+      style: {
+        marginBottom: '40px'
+      }
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: 'Background Settings'
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("strong", null, "Background Image:")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(MediaUpload, {
+      onSelect: updateBackgroundImage,
+      type: "image",
+      value: props.attributes.backgroundImage,
+      render: function render(_ref) {
+        var open = _ref.open;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
+          onClick: open,
+          className: "components-button is-button is-default is-large"
+        }, "Upload Image!");
+      }
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      style: {
+        border: '1px solid black',
+        backgroundImage: "url(".concat(props.attributes.backgroundImage, ")"),
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      },
+      className: className
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, null))];
+  },
+  save: function save(props) {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null);
+  }
+});
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -377,6 +451,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _parent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./parent */ "./src/parent.js");
 /* harmony import */ var _dynamicBlock__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./dynamicBlock */ "./src/dynamicBlock.js");
 /* harmony import */ var _dynamicBlockWithInnerBlocks__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./dynamicBlockWithInnerBlocks */ "./src/dynamicBlockWithInnerBlocks.js");
+/* harmony import */ var _hero_banner__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./hero-banner */ "./src/hero-banner.js");
+
 
 
 

@@ -62,7 +62,7 @@ add_action('init', 'laura_gutenberg_font_size');
 function laura_gutenberg_blocks() {
 
   wp_register_script(
-    'custom-cta-js',
+    'laura-blocks',
     get_template_directory_uri() . '/build/index.js', array( 'wp-blocks', 'wp-editor', 'wp-components' )
   );
 
@@ -70,17 +70,54 @@ function laura_gutenberg_blocks() {
     'custom-cta',
     'section',
     'parent',
-    'child'
+    'child',
+    'gutenberg'
   );
 
   foreach ($blocks as $key => $block) {
     register_block_type(
       'laura/' . $block,
       array(
-        'editor_script' => 'custom-cta-js'
+        'editor_script' => 'laura-blocks'
       )
     );
-  }
+  } // endforeach
+
+
+  // dynamic blocks
+  register_block_type(
+    'laura/dynamic',
+    array(
+      'editor_script' => 'laura-blocks',
+      'render_callback' => 'render_posts_block'
+    )
+  );
 }
 
 add_action('init', 'laura_gutenberg_blocks');
+
+
+function render_posts_block( $attributes ) {
+
+  $posts = get_posts([
+    'category' => $attributes['selectedCategory'],
+    'posts_per_page' => $attributes['postsPerPage']
+  ]);
+
+
+  ob_start();
+  echo "<div class='posts-by-category'>";
+  foreach ($posts as $post) {
+    echo "<div>";
+    echo "<h2>$post->post_title</h2>";
+    echo get_the_category_list(', ', '', $post->ID);
+    echo get_the_post_thumbnail($post->ID);
+    echo "<p>$post->post_excerpt</p>";
+    echo "<hr>";
+    echo "</div>";
+  }
+  echo "</div>";
+
+  return ob_get_clean();
+
+}

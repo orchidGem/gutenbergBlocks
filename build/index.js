@@ -219,6 +219,95 @@ registerBlockType('laura/custom-cta', {
 
 /***/ }),
 
+/***/ "./src/dynamicBlock.js":
+/*!*****************************!*\
+  !*** ./src/dynamicBlock.js ***!
+  \*****************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+var registerBlockType = wp.blocks.registerBlockType;
+var InnerBlocks = wp.editor.InnerBlocks;
+registerBlockType('laura/dynamic', {
+  // built-in attributes
+  title: 'Dynamic',
+  description: 'Dynamic',
+  icon: 'format-image',
+  category: 'layout',
+  // custom attributes
+  attributes: {
+    categories: {
+      type: 'object'
+    },
+    selectedCategory: {
+      type: 'string'
+    },
+    postsPerPage: {
+      type: 'string'
+    }
+  },
+  edit: function edit(props) {
+    var className = props.className; // fetch all categories
+
+    if (!props.attributes.categories) {
+      wp.apiFetch({
+        url: '/wp-json/wp/v2/categories'
+      }).then(function (categories) {
+        props.setAttributes({
+          categories: categories
+        });
+      });
+    }
+
+    if (!props.attributes.categories) {
+      return 'Loading...';
+    }
+
+    if (props.attributes.categories && props.attributes.categories.length === 0) {
+      return 'No categories found. please add some';
+    }
+
+    function updateCategory(e) {
+      props.setAttributes({
+        selectedCategory: e.target.value
+      });
+    }
+
+    function updatePostsPerPage(e) {
+      console.log('update posts per page');
+      props.setAttributes({
+        postsPerPage: e.target.value
+      });
+      console.log(props.attributes);
+    }
+
+    console.log(props.attributes);
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("label", null, "Post Category"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("select", {
+      onChange: updateCategory,
+      value: props.attributes.selectedCategory
+    }, props.attributes.categories.map(function (category) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("option", {
+        value: category.id
+      }, category.name);
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("label", null, "Posts Per Page"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
+      placeholder: "Posts per Page",
+      type: "text",
+      onChange: updatePostsPerPage,
+      value: props.attributes.postsPerPage
+    }));
+  },
+  save: function save(props) {
+    return null;
+  }
+});
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -232,6 +321,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _section__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./section */ "./src/section.js");
 /* harmony import */ var _child__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./child */ "./src/child.js");
 /* harmony import */ var _parent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./parent */ "./src/parent.js");
+/* harmony import */ var _dynamicBlock__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./dynamicBlock */ "./src/dynamicBlock.js");
+
 
 
 

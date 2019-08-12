@@ -56,7 +56,22 @@ function laura_gutenberg_font_size()
 
 add_action('init', 'laura_gutenberg_font_size');
 
+/*
+* Enqueue styles in back end
+*/
+function ss_enqueue_editor_styles() {
+    add_theme_support('editor-styles');
 
+    add_theme_support( 'align-wide' );
+
+    add_theme_support( 'disable-custom-colors' );
+
+
+    // Enqueue editor styles.
+    add_editor_style( get_template_directory_uri() . '/style-custom-editor.css');
+}
+
+add_action( 'after_setup_theme', 'ss_enqueue_editor_styles' );
 
 // register all blocks here
 function laura_gutenberg_blocks() {

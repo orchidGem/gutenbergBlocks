@@ -1,6 +1,8 @@
 const { registerBlockType } = wp.blocks;
 
-const {  InnerBlocks } = wp.editor;
+const { InspectorControls, InnerBlocks, AlignmentToolbar,BlockControls } = wp.editor;
+
+import BackgroundOptions from './components/BackgroundOptions';
 
 const TEMPLATE = [
   ['core/paragraph', { placeholder: 'write text here' }],
@@ -10,21 +12,66 @@ const TEMPLATE = [
 registerBlockType('laura/section', {
 
   // built-in attributes
-  title: 'Section',
+  title: 'Section Testing',
   description: 'Section element',
   icon: 'format-image',
   category: 'layout',
+  supports: {
+    anchor: true,
+    html: false,
+    reusable: false
+  },
 
   // custom attributes
   attributes: {
-
+    backgroundImg: {
+      type: 'string',
+      default: ''
+    },
+    alignment: {
+      type: 'string',
+    }
   },
 
   edit: props => {
-    const { className } = props;
+    const { attributes: { alignment, backgroundImg }, className, setAttributes } = props;
+
+    const onChangeAlignment = ( newAlignment ) => {
+            props.setAttributes( { alignment: newAlignment === undefined ? 'none' : newAlignment } );
+        };
+
+    function changeBackgroundColor(image) {
+      console.log(image);
+    }
 
     return [
-      <div style={{ 'border':'1px solid black' }} className = {className}>
+
+      <InspectorControls style={{ marginBottom: '40px;' }}>
+
+        <BackgroundOptions
+          value={backgroundImg}
+          handleColorChange={backgroundImg => setAttributes({ backgroundImg })}
+        />
+
+      </InspectorControls>,
+      <div
+        style={{
+          backgroundImage: `url(${backgroundImg})`,
+          border: '5px dashed #cbcbcb',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+        className = {className}>
+
+      {
+                  <BlockControls>
+                      <AlignmentToolbar
+                          value={ alignment }
+                          onChange={ onChangeAlignment }
+                      />
+                  </BlockControls>
+              }
+
         <InnerBlocks
                       allowedBlocks={['core/paragraph', 'core/image']}
                       template={TEMPLATE}

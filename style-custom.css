@@ -1,5 +1,5 @@
-.has-yellow-color {
-  color: #ffcb05 !important;
+.bg-yellow{
+  background: #ffcb05 !important;
 }
 
 .has-small-font-size {
@@ -18,4 +18,27 @@
 
 .has-huge-font-size {
   font-size: 30px !important;
+}
+
+[class*="has-bkg-img-opacity"] {
+  position: relative;
+}
+
+[class*="has-bkg-img-opacity"] * {
+  position: relative;
+}
+
+[class*="has-bkg-img-opacity"]::before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  content: ".";
+  font-size: 0;
+  z-index: 0;
+}
+
+.has-bkg-img-opacity-5::before {
+  background: linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 25%, rgba(0,0,0,0.5) 50%, rgba(255,0,0,0) 100%);
 }

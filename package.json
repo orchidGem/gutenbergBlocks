@@ -42,6 +42,9 @@
     "build:scripts": "wp-scripts build",
     "build": "run-p \"build:*\"",
     "watch": "chokidar \"**/*.scss\" -c \"npm run build\" --initial",
-    "start-build" : "wp-scripts start"
+    "start-build": "wp-scripts start"
+  },
+  "dependencies": {
+    "classnames": "^2.2.6"
   }
 }

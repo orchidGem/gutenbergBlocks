@@ -87,7 +87,9 @@ function laura_gutenberg_blocks() {
     'parent',
     'child',
     'gutenberg',
-    'container'
+    'container',
+    'row',
+    'column'
   );
 
   foreach ($blocks as $key => $block) {

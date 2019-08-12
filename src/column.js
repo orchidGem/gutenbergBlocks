@@ -1,15 +1,15 @@
 const { registerBlockType } = wp.blocks;
 const { InspectorControls,InnerBlocks, AlignmentToolbar,BlockControls } = wp.editor;
-const { RadioControl, PanelBody} = wp.components;
+const { SelectControl, PanelBody} = wp.components;
 import BackgroundOptions from './components/BackgroundOptions';
 
-registerBlockType('laura/container', {
+registerBlockType('laura/column', {
 
-  title: 'Container',
-  description: 'Container element',
+  title: 'Column',
+  description: 'Column element',
   icon: 'format-image',
   category: 'layout',
-  parent: ['laura/section'],
+  parent: ['laura/row'],
   supports: {
     anchor: true,
     html: false,
@@ -40,7 +40,7 @@ registerBlockType('laura/container', {
         hasBkgImgOpacity: false,
         bkgColor: false,
         alignment: false,
-        widthSize: 'container'
+        size: 'col-md-12'
       }
     },
     customStyles: {
@@ -91,28 +91,28 @@ registerBlockType('laura/container', {
       });
     }
 
-    function changeWidthSize(value) {
-      let newClass = {...customClasses};
-      newClass.widthSize = value;
-
-      setAttributes({
-        customClasses: newClass
-      })
-    }
-
     return [
 
       <InspectorControls style={{ marginBottom: '40px;' }}>
 
-        <PanelBody title="Width Settings">
-          <RadioControl
-            label="Width Size"
-            selected={customClasses.widthSize}
+        <PanelBody title="Column Sizes">
+          <SelectControl
+            label="Column Size"
+            value={customStyles.size}
             options={[
-              { label: "Fixed Width", value: "container" },
-              { label: "Full Width", value: "container-fluid" }
+              { value: "col-md-1", label: "1/12" },
+              { value: "col-md-2", label: "2/12" },
+              { value: "col-md-3", label: "3/12"},
+              { value: "col-md-4", label: "4/12"},
+              { value: "col-md-5", label: "5/12"},
+              { value: "col-md-6", label: "6/12"},
+              { value: "col-md-7", label: "7/12"},
+              { value: "col-md-8", label: "8/12"},
+              { value: "col-md-9", label: "9/12"},
+              { value: "col-md-10", label: "10/12"},
+              { value: "col-md-11", label: "11/12"},
+              { value: "col-md-12", label: "12/12"},
             ]}
-            onChange={value => changeWidthSize( value )}
           />
         </PanelBody>
 
@@ -147,7 +147,7 @@ registerBlockType('laura/container', {
         }
 
         <InnerBlocks
-          template={[['laura/row']]}
+          allowedBlocks={['core/paragraph']}
         />
       </div>
     ]
@@ -159,7 +159,7 @@ registerBlockType('laura/container', {
     let styles = Object.values(customStyles).toString(),
         classes = Object.values(customClasses).filter(Boolean).join(" ");
 
-    classes = `container ${classes}`;
+    classes = `row ${classes}`;
 
     return (
       <div className={classes} style={styles}>

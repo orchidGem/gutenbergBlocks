@@ -6,3 +6,5 @@ import './dynamicBlock';
 import './dynamicBlockWithInnerBlocks';
 import './hero-banner';
 import './container';
+import './row';
+import './column';

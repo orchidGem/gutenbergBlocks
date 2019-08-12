@@ -2,18 +2,12 @@ const { registerBlockType } = wp.blocks;
 const { InspectorControls, InnerBlocks, AlignmentToolbar,BlockControls } = wp.editor;
 import BackgroundOptions from './components/BackgroundOptions';
 
-const TEMPLATE = [
-  ['core/paragraph', { placeholder: 'write text here' }],
-  ['laura/container']
-];
-
 registerBlockType('laura/section', {
 
   title: 'Section',
   description: 'Section element',
   icon: 'format-image',
   category: 'layout',
-  parent: ['laura/section'],
   supports: {
     anchor: true,
     html: false,
@@ -129,7 +123,7 @@ registerBlockType('laura/section', {
         }
 
         <InnerBlocks
-          template={TEMPLATE}
+          template={[['laura/container']]}
         />
       </div>
     ]

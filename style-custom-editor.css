@@ -9,3 +9,40 @@
     box-sizing: content-box;
     font-size: 16px;
 }
+
+
+.wp-block-laura-container::before {
+    content: 'Container';
+    position: relative;
+    background: #cbcbcb;
+    top: -11px;
+    left: -5px;
+    cursor: pointer;
+    padding: 5px 10px;
+    box-sizing: content-box;
+    font-size: 16px;
+}
+
+.wp-block-laura-row::before {
+    content: 'Row';
+    position: relative;
+    background: #cbcbcb;
+    top: -11px;
+    left: -5px;
+    cursor: pointer;
+    padding: 5px 10px;
+    box-sizing: content-box;
+    font-size: 16px;
+}
+
+.wp-block-laura-column::before {
+    content: 'Column';
+    position: relative;
+    background: #cbcbcb;
+    top: -11px;
+    left: -5px;
+    cursor: pointer;
+    padding: 5px 10px;
+    box-sizing: content-box;
+    font-size: 16px;
+}

@@ -108,12 +108,15 @@ registerBlockType('laura/section', {
       <div
         style={{
           backgroundImage: `url(${bkgImg})`,
-          border: '5px dashed #cbcbcb',
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}
-        className = {`sisense-block-section ${className}`}
+        className = {`sisense-block-section sisense-layout-block ${className}`}
       >
+        <div className="blockTitle">
+          Section
+        </div>
+
         {
           <BlockControls>
               <AlignmentToolbar

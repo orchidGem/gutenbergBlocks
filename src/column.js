@@ -52,6 +52,13 @@ registerBlockType('laura/column', {
     }
   },
 
+  getEditWrapperProps( attributes ) {
+    const { customClasses } = attributes;
+    return {
+      'data-column-size': customClasses.size
+    }
+  },
+
   edit: props => {
     const {
       attributes: {
@@ -142,12 +149,12 @@ registerBlockType('laura/column', {
       <div
         style={{
           backgroundImage: `url(${bkgImg})`,
-          border: '5px dashed #cbcbcb',
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}
-        className = {`sisense-block-column ${customClasses.size}`}
+        className = {`sisense-block-column sisense-layout-block ${customClasses.size}`}
       >
+        <div className="blockTitle">Column</div>
         {
           <BlockControls>
               <AlignmentToolbar

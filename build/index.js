@@ -205,6 +205,12 @@ registerBlockType('laura/column', {
       }
     }
   },
+  getEditWrapperProps: function getEditWrapperProps(attributes) {
+    var customClasses = attributes.customClasses;
+    return {
+      'data-column-size': customClasses.size
+    };
+  },
   edit: function edit(props) {
     var _props$attributes = props.attributes,
         alignment = _props$attributes.alignment,
@@ -324,12 +330,13 @@ registerBlockType('laura/column', {
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       style: {
         backgroundImage: "url(".concat(bkgImg, ")"),
-        border: '5px dashed #cbcbcb',
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       },
-      className: "sisense-block-column ".concat(customClasses.size)
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BlockControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(AlignmentToolbar, {
+      className: "sisense-block-column sisense-layout-block ".concat(customClasses.size)
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: "blockTitle"
+    }, "Column"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BlockControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(AlignmentToolbar, {
       value: alignment,
       onChange: changeAlignment
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks, null))];
@@ -499,7 +506,9 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-var registerBlockType = wp.blocks.registerBlockType;
+var _wp$blocks = wp.blocks,
+    registerBlockType = _wp$blocks.registerBlockType,
+    createBlock = _wp$blocks.createBlock;
 var _wp$editor = wp.editor,
     InspectorControls = _wp$editor.InspectorControls,
     InnerBlocks = _wp$editor.InnerBlocks,
@@ -519,7 +528,8 @@ registerBlockType('laura/container', {
     anchor: true,
     html: false,
     reusable: false,
-    className: false
+    className: false,
+    inserter: false
   },
   // custom attributes
   attributes: {
@@ -564,7 +574,8 @@ registerBlockType('laura/container', {
         customClasses = _props$attributes.customClasses,
         customStyles = _props$attributes.customStyles,
         className = props.className,
-        setAttributes = props.setAttributes;
+        setAttributes = props.setAttributes,
+        clientId = props.clientId;
 
     function changeAlignment(alignment) {
       var newClass = _objectSpread({}, customClasses);
@@ -626,7 +637,14 @@ registerBlockType('laura/container', {
       onChange: function onChange(value) {
         return changeWidthSize(value);
       }
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_components_BackgroundOptions__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("button", {
+      onClick: function onClick() {
+        var newBlock = createBlock('laura/row');
+        var container = wp.data.select('core/block-editor').getBlocksByClientId(clientId);
+        wp.data.dispatch('core/editor').insertBlock(newBlock, container[0].innerBlocks.length, clientId);
+      },
+      className: "components-button is-button is-default is-large"
+    }, "Add Row"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_components_BackgroundOptions__WEBPACK_IMPORTED_MODULE_2__["default"], {
       bkgColor: bkgColor,
       handleBkgColorChange: function handleBkgColorChange(bkgColor) {
         return changeBkgColor(bkgColor);
@@ -644,12 +662,13 @@ registerBlockType('laura/container', {
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       style: {
         backgroundImage: "url(".concat(bkgImg, ")"),
-        border: '5px dashed #cbcbcb',
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       },
-      className: "sisense-block-container ".concat(customClasses.widthSize)
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BlockControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(AlignmentToolbar, {
+      className: "sisense-block-container sisense-layout-block ".concat(customClasses.widthSize)
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: "blockTitle"
+    }, "Container"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BlockControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(AlignmentToolbar, {
       value: alignment,
       onChange: changeAlignment
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks, {
@@ -1122,7 +1141,8 @@ registerBlockType('laura/row', {
     anchor: true,
     html: false,
     reusable: false,
-    className: false
+    className: false,
+    inserter: false
   },
   // custom attributes
   attributes: {
@@ -1231,12 +1251,13 @@ registerBlockType('laura/row', {
     }, "Add Column")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       style: {
         backgroundImage: "url(".concat(bkgImg, ")"),
-        border: '5px dashed #cbcbcb',
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       },
-      className: "sisense-block-row ".concat(className)
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BlockControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(AlignmentToolbar, {
+      className: "sisense-block-row  sisense-layout-block ".concat(className)
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: "blockTitle"
+    }, "Row"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BlockControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(AlignmentToolbar, {
       value: alignment,
       onChange: changeAlignment
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks, {
@@ -1399,12 +1420,13 @@ registerBlockType('laura/section', {
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       style: {
         backgroundImage: "url(".concat(bkgImg, ")"),
-        border: '5px dashed #cbcbcb',
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       },
-      className: "sisense-block-section ".concat(className)
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BlockControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(AlignmentToolbar, {
+      className: "sisense-block-section sisense-layout-block ".concat(className)
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+      className: "blockTitle"
+    }, "Section"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(BlockControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(AlignmentToolbar, {
       value: alignment,
       onChange: changeAlignment
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks, {

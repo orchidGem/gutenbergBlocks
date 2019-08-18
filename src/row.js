@@ -14,7 +14,8 @@ registerBlockType('laura/row', {
     anchor: true,
     html: false,
     reusable: false,
-    className: false
+    className: false,
+    inserter: false
   },
 
   // custom attributes
@@ -124,12 +125,14 @@ registerBlockType('laura/row', {
       <div
         style={{
           backgroundImage: `url(${bkgImg})`,
-          border: '5px dashed #cbcbcb',
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}
-        className = {`sisense-block-row ${className}`}
+        className = {`sisense-block-row  sisense-layout-block ${className}`}
       >
+        <div className="blockTitle">
+          Row
+        </div>
         {
           <BlockControls>
               <AlignmentToolbar

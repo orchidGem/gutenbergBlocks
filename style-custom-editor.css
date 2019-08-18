@@ -1,58 +1,50 @@
-.sisense-block-section::before {
-    content: 'Section';
+.blockTitle {
     position: relative;
-    background: #cbcbcb;
-    top: -11px;
-    left: -5px;
     cursor: pointer;
-    padding: 5px 10px;
     box-sizing: content-box;
     font-size: 16px;
+    text-align: center;
+    display: block;
+    border: 3px dashed #cbcbcb;
+    color: #cbcbcb;
+    left: -20px;
+    width: calc(100% + 34px);
+    z-index: 10;
 }
 
+.sisense-block-section {
+    border: 3px dashed #cbcbcb;
+}
 
-.sisense-block-container::before {
-    content: 'Container';
-    position: relative;
-    background: #cbcbcb;
-    top: -11px;
-    left: -5px;
-    cursor: pointer;
-    padding: 5px 10px;
-    box-sizing: content-box;
-    font-size: 16px;
+.sisense-block-section > .blockTitle {
+    border-top:none;
+    border-left: none;
+    border-right: none;
+}
+
+.sisense-layout-block {
+  padding: 0 20px;
+}
+
+.sisense-block-container {
+    border: 1px solid transparent;
 }
 
 
 .sisense-block-container.container {
-    max-width: 90%;
+    max-width: 95%;
     margin: 0 auto;
 }
 
-.sisense-block-row::before {
-    content: 'Row';
-    position: relative;
-    background: #cbcbcb;
-    top: -11px;
-    left: -5px;
-    cursor: pointer;
-    padding: 5px 10px;
-    box-sizing: content-box;
-    font-size: 16px;
+.sisense-block-row .editor-block-list__layout.block-editor-block-list__layout{
+    display: flex;
+    flex-flow: wrap;
 }
 
-.sisense-block-column::before {
-    content: 'Column';
-    position: relative;
-    background: #cbcbcb;
-    top: -11px;
-    left: -5px;
-    cursor: pointer;
-    padding: 5px 10px;
-    box-sizing: content-box;
-    font-size: 16px;
+.sisense-block-row .wp-block[data-column-size="col-md-12"]{
+    width: 100% !important;
 }
 
-.sisense-block-column.col-md-6 {
-  width: 50% !important;
+.sisense-block-row .wp-block[data-column-size="col-md-6"]{
+    width: 50% !important;
 }

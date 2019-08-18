@@ -1,4 +1,4 @@
-const { registerBlockType } = wp.blocks;
+const { registerBlockType, createBlock } = wp.blocks;
 const { InspectorControls,InnerBlocks, AlignmentToolbar,BlockControls } = wp.editor;
 const { RadioControl, PanelBody} = wp.components;
 import BackgroundOptions from './components/BackgroundOptions';
@@ -14,7 +14,8 @@ registerBlockType('laura/container', {
     anchor: true,
     html: false,
     reusable: false,
-    className: false
+    className: false,
+    inserter: false
   },
 
   // custom attributes
@@ -57,7 +58,7 @@ registerBlockType('laura/container', {
       attributes: {
         alignment, bkgColor, bkgImg,bkgImgOpacity, customClasses, customStyles
       },
-      className, setAttributes
+      className, setAttributes, clientId
     } = props;
 
     function changeAlignment(alignment) {
@@ -117,6 +118,17 @@ registerBlockType('laura/container', {
           />
         </PanelBody>
 
+        <button
+          onClick={ () => {
+            let newBlock = createBlock( 'laura/row' );
+            let container = wp.data.select( 'core/block-editor' ).getBlocksByClientId( clientId );
+            wp.data.dispatch( 'core/editor' ).insertBlock( newBlock,    container[0].innerBlocks.length,clientId);
+          } }
+          className="components-button is-button is-default is-large"
+        >
+          Add Row
+        </button>
+
         <BackgroundOptions
           bkgColor={bkgColor}
           handleBkgColorChange={bkgColor => changeBkgColor( bkgColor )}
@@ -132,12 +144,12 @@ registerBlockType('laura/container', {
       <div
         style={{
           backgroundImage: `url(${bkgImg})`,
-          border: '5px dashed #cbcbcb',
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}
-        className = {`sisense-block-container ${customClasses.widthSize}`}
+        className = {`sisense-block-container sisense-layout-block ${customClasses.widthSize}`}
       >
+        <div className="blockTitle">Container</div>
         {
           <BlockControls>
               <AlignmentToolbar

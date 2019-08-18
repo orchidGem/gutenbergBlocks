@@ -9,11 +9,12 @@ registerBlockType('laura/column', {
   description: 'Column element',
   icon: 'format-image',
   category: 'layout',
-  parent: ['laura/row'],
   supports: {
     anchor: true,
     html: false,
-    reusable: false
+    reusable: false,
+    className: false,
+    inserter: false
   },
 
   // custom attributes
@@ -91,6 +92,15 @@ registerBlockType('laura/column', {
       });
     }
 
+    function changeSize(value) {
+      let newClass = {...customClasses};
+      newClass.size = value;
+
+      setAttributes({
+        customClasses: newClass
+      });
+    }
+
     return [
 
       <InspectorControls style={{ marginBottom: '40px;' }}>
@@ -98,21 +108,22 @@ registerBlockType('laura/column', {
         <PanelBody title="Column Sizes">
           <SelectControl
             label="Column Size"
-            value={customStyles.size}
+            value={customClasses.size}
             options={[
               { value: "col-md-1", label: "1/12" },
               { value: "col-md-2", label: "2/12" },
-              { value: "col-md-3", label: "3/12"},
+              { value: "col-md-3", label: "3/12 (25%)"},
               { value: "col-md-4", label: "4/12"},
               { value: "col-md-5", label: "5/12"},
-              { value: "col-md-6", label: "6/12"},
+              { value: "col-md-6", label: "6/12 (50%)"},
               { value: "col-md-7", label: "7/12"},
               { value: "col-md-8", label: "8/12"},
-              { value: "col-md-9", label: "9/12"},
+              { value: "col-md-9", label: "9/12 (75%)"},
               { value: "col-md-10", label: "10/12"},
               { value: "col-md-11", label: "11/12"},
-              { value: "col-md-12", label: "12/12"},
+              { value: "col-md-12", label: "12/12 (100%)"},
             ]}
+            onChange={value => changeSize(value)}
           />
         </PanelBody>
 
@@ -135,7 +146,7 @@ registerBlockType('laura/column', {
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}
-        className = {className}
+        className = {`sisense-block-column ${customClasses.size}`}
       >
         {
           <BlockControls>
@@ -146,9 +157,7 @@ registerBlockType('laura/column', {
           </BlockControls>
         }
 
-        <InnerBlocks
-          allowedBlocks={['core/paragraph']}
-        />
+        <InnerBlocks/>
       </div>
     ]
   },
@@ -159,7 +168,10 @@ registerBlockType('laura/column', {
     let styles = Object.values(customStyles).toString(),
         classes = Object.values(customClasses).filter(Boolean).join(" ");
 
-    classes = `row ${classes}`;
+    if (styles.length === 0) styles = false;
+    if (classes.lenth === 0) classes = false;
+
+    classes = `${classes}`;
 
     return (
       <div className={classes} style={styles}>

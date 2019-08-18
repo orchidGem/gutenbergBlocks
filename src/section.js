@@ -11,7 +11,8 @@ registerBlockType('laura/section', {
   supports: {
     anchor: true,
     html: false,
-    reusable: false
+    reusable: false,
+    className: false
   },
 
   // custom attributes
@@ -111,7 +112,7 @@ registerBlockType('laura/section', {
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}
-        className = {className}
+        className = {`sisense-block-section ${className}`}
       >
         {
           <BlockControls>
@@ -135,8 +136,11 @@ registerBlockType('laura/section', {
     let styles = Object.values(customStyles).toString(),
         classes = Object.values(customClasses).filter(Boolean).join(" ");
 
+    if (styles.length === 0) styles = false;
+    if (classes.lenth === 0) classes = false;
+
     return (
-      <section className={classes} style={styles}>
+      <section className={false} style={styles}>
         <InnerBlocks.Content />
       </section>
     )

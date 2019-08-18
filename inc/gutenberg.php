@@ -180,3 +180,24 @@ function render_hero_banner( $attributes, $content ) {
   return ob_get_clean();
 
 }
+
+
+
+function register_acf_block_types() {
+
+    // register a testimonial block.
+    acf_register_block_type(array(
+        'name'              => 'cta-blocks',
+        'title'             => __('CTA Blocks'),
+        'description'       => __('A custom cta block.'),
+        'render_template'   => 'template-parts/blocks/cta-blocks.php',
+        'category'          => 'formatting',
+        'icon'              => 'admin-comments',
+        'keywords'          => array( 'cta' ),
+    ));
+}
+
+// Check if function exists and hook into setup.
+if( function_exists('acf_register_block_type') ) {
+    add_action('acf/init', 'register_acf_block_types');
+}

@@ -588,7 +588,7 @@ body .wp-block[data-align="full"] {
 
 /** === Content Width === */
 .wp-block {
-  max-width: 100%;
+  max-width: 100% !important;
 }
 
 .wp-block .wp-block {

@@ -13,7 +13,8 @@ registerBlockType('laura/container', {
   supports: {
     anchor: true,
     html: false,
-    reusable: false
+    reusable: false,
+    className: false
   },
 
   // custom attributes
@@ -135,7 +136,7 @@ registerBlockType('laura/container', {
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}
-        className = {className}
+        className = {`sisense-block-container ${customClasses.widthSize}`}
       >
         {
           <BlockControls>
@@ -159,7 +160,8 @@ registerBlockType('laura/container', {
     let styles = Object.values(customStyles).toString(),
         classes = Object.values(customClasses).filter(Boolean).join(" ");
 
-    classes = `container ${classes}`;
+    if (styles.length === 0) styles = false;
+    if (classes.lenth === 0) classes = false;
 
     return (
       <div className={classes} style={styles}>

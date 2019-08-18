@@ -1,5 +1,5 @@
-.wp-block-laura-section::before {
-    content: 'section';
+.sisense-block-section::before {
+    content: 'Section';
     position: relative;
     background: #cbcbcb;
     top: -11px;
@@ -11,7 +11,7 @@
 }
 
 
-.wp-block-laura-container::before {
+.sisense-block-container::before {
     content: 'Container';
     position: relative;
     background: #cbcbcb;
@@ -23,7 +23,13 @@
     font-size: 16px;
 }
 
-.wp-block-laura-row::before {
+
+.sisense-block-container.container {
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+.sisense-block-row::before {
     content: 'Row';
     position: relative;
     background: #cbcbcb;
@@ -35,7 +41,7 @@
     font-size: 16px;
 }
 
-.wp-block-laura-column::before {
+.sisense-block-column::before {
     content: 'Column';
     position: relative;
     background: #cbcbcb;
@@ -45,4 +51,8 @@
     padding: 5px 10px;
     box-sizing: content-box;
     font-size: 16px;
+}
+
+.sisense-block-column.col-md-6 {
+  width: 50% !important;
 }

@@ -1,4 +1,4 @@
-const { registerBlockType } = wp.blocks;
+const { registerBlockType,createBlock } = wp.blocks;
 const { InspectorControls,InnerBlocks, AlignmentToolbar,BlockControls } = wp.editor;
 const { RadioControl, PanelBody} = wp.components;
 import BackgroundOptions from './components/BackgroundOptions';
@@ -13,7 +13,8 @@ registerBlockType('laura/row', {
   supports: {
     anchor: true,
     html: false,
-    reusable: false
+    reusable: false,
+    className: false
   },
 
   // custom attributes
@@ -55,7 +56,7 @@ registerBlockType('laura/row', {
       attributes: {
         alignment, bkgColor, bkgImg,bkgImgOpacity, customClasses, customStyles
       },
-      className, setAttributes
+      className, setAttributes, clientId
     } = props;
 
     function changeAlignment(alignment) {
@@ -90,6 +91,10 @@ registerBlockType('laura/row', {
       });
     }
 
+    function addColumn() {
+
+    }
+
     return [
 
       <InspectorControls style={{ marginBottom: '40px;' }}>
@@ -105,6 +110,16 @@ registerBlockType('laura/row', {
           customClasses={customClasses}
         />
 
+        <button
+          onClick={ () => {
+            let newBlock = createBlock( 'laura/column' );
+            let row = wp.data.select( 'core/block-editor' ).getBlocksByClientId( clientId );
+            wp.data.dispatch( 'core/editor' ).insertBlock( newBlock, row[0].innerBlocks.length,clientId);
+          } }
+        >
+          Add Column
+        </button>
+
       </InspectorControls>,
       <div
         style={{
@@ -113,7 +128,7 @@ registerBlockType('laura/row', {
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}
-        className = {className}
+        className = {`sisense-block-row ${className}`}
       >
         {
           <BlockControls>
@@ -137,6 +152,9 @@ registerBlockType('laura/row', {
 
     let styles = Object.values(customStyles).toString(),
         classes = Object.values(customClasses).filter(Boolean).join(" ");
+
+    if (styles.length === 0) styles = false;
+    if (classes.lenth === 0) classes = false;
 
     classes = `row ${classes}`;
 

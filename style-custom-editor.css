@@ -41,10 +41,24 @@
     flex-flow: wrap;
 }
 
-.sisense-block-row .wp-block[data-column-size="col-md-12"]{
+.sisense-block-content-tabs .editor-block-list__layout.block-editor-block-list__layout{
+    display: flex;
+    flex-flow: wrap;
+}
+
+.sisense-block-content-tab .editor-block-list__layout.block-editor-block-list__layout{
+    display: flex;
+    flex-flow: wrap;
+}
+
+.wp-block[data-column-size="col-md-12"]{
     width: 100% !important;
 }
 
-.sisense-block-row .wp-block[data-column-size="col-md-6"]{
+.wp-block[data-column-size="col-md-6"]{
     width: 50% !important;
+}
+
+.wp-block[data-column-size="col-md-4"]{
+    width: 33.33333% !important;
 }

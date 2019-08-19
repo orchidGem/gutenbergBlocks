@@ -117,6 +117,7 @@ registerBlockType('laura/row', {
             let row = wp.data.select( 'core/block-editor' ).getBlocksByClientId( clientId );
             wp.data.dispatch( 'core/editor' ).insertBlock( newBlock, row[0].innerBlocks.length,clientId);
           } }
+          className="components-button is-button is-default is-large"
         >
           Add Column
         </button>

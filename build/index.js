@@ -672,7 +672,8 @@ registerBlockType('laura/container', {
       value: alignment,
       onChange: changeAlignment
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks, {
-      template: [['laura/row']]
+      template: [['laura/row']],
+      allowedBlocks: ['laura/row']
     }))];
   },
   save: function save(props) {
@@ -687,6 +688,218 @@ registerBlockType('laura/container', {
       className: classes,
       style: styles
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks.Content, null));
+  }
+});
+
+/***/ }),
+
+/***/ "./src/content-tab.js":
+/*!****************************!*\
+  !*** ./src/content-tab.js ***!
+  \****************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+var _wp$blocks = wp.blocks,
+    registerBlockType = _wp$blocks.registerBlockType,
+    createBlock = _wp$blocks.createBlock;
+var _wp$editor = wp.editor,
+    InspectorControls = _wp$editor.InspectorControls,
+    InnerBlocks = _wp$editor.InnerBlocks,
+    BlockControls = _wp$editor.BlockControls,
+    RichText = _wp$editor.RichText;
+var PanelBody = wp.components.PanelBody;
+registerBlockType('laura/content-tab', {
+  title: 'Content tab',
+  description: 'Content tab',
+  icon: 'format-image',
+  category: 'layout',
+  parent: ['laura/content-tabs'],
+  supports: {
+    anchor: true,
+    html: false,
+    reusable: false,
+    className: false,
+    inserter: false
+  },
+  // custom attributes
+  attributes: {
+    icon: {
+      type: 'string'
+    },
+    title: {
+      type: 'string'
+    },
+    description: {
+      type: 'string'
+    },
+    customClasses: {
+      type: 'object',
+      default: {}
+    },
+    customStyles: {
+      type: 'object',
+      default: {}
+    }
+  },
+  getEditWrapperProps: function getEditWrapperProps(attributes) {
+    var customClasses = attributes.customClasses;
+    return {
+      'data-column-size': 'col-md-4'
+    };
+  },
+  edit: function edit(props) {
+    var _props$attributes = props.attributes,
+        customClasses = _props$attributes.customClasses,
+        customStyles = _props$attributes.customStyles,
+        title = _props$attributes.title,
+        description = _props$attributes.description,
+        className = props.className,
+        setAttributes = props.setAttributes,
+        clientId = props.clientId;
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, {
+      style: {
+        marginBottom: '40px;'
+      }
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "sisense-block-content-tab  sisense-layout-block ".concat(className)
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "blockTitle"
+    }, "Content Tab"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
+      format: "string",
+      tagName: "h3",
+      placeholder: "Title",
+      value: title,
+      onChange: function onChange(value) {
+        setAttributes({
+          title: value
+        });
+      }
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
+      format: "string",
+      tagName: "p",
+      placeholder: "Description",
+      value: description,
+      onChange: function onChange(value) {
+        setAttributes({
+          description: value
+        });
+      }
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
+      template: [['laura/column', {
+        customClasses: {
+          size: 'col-md-6'
+        }
+      }], ['laura/column', {
+        customClasses: {
+          size: 'col-md-6'
+        }
+      }]],
+      allowedBlocks: ['laura/column']
+    }))];
+  },
+  save: function save(props) {
+    var _props$attributes2 = props.attributes,
+        customClasses = _props$attributes2.customClasses,
+        customStyles = _props$attributes2.customStyles;
+    var styles = Object.values(customStyles).toString(),
+        classes = Object.values(customClasses).filter(Boolean).join(" ");
+    if (styles.length === 0) styles = false;
+    if (classes.lenth === 0) classes = false;
+    classes = "row ".concat(classes);
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null);
+  }
+});
+
+/***/ }),
+
+/***/ "./src/content-tabs.js":
+/*!*****************************!*\
+  !*** ./src/content-tabs.js ***!
+  \*****************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+var _wp$blocks = wp.blocks,
+    registerBlockType = _wp$blocks.registerBlockType,
+    createBlock = _wp$blocks.createBlock;
+var _wp$editor = wp.editor,
+    InspectorControls = _wp$editor.InspectorControls,
+    InnerBlocks = _wp$editor.InnerBlocks,
+    BlockControls = _wp$editor.BlockControls;
+var PanelBody = wp.components.PanelBody;
+registerBlockType('laura/content-tabs', {
+  title: 'Content Tabs',
+  description: 'Content Tabs',
+  icon: 'format-image',
+  category: 'layout',
+  supports: {
+    anchor: true,
+    html: false,
+    reusable: false,
+    className: false
+  },
+  // custom attributes
+  attributes: {
+    customClasses: {
+      type: 'object',
+      default: {}
+    },
+    customStyles: {
+      type: 'object',
+      default: {}
+    }
+  },
+  edit: function edit(props) {
+    var _props$attributes = props.attributes,
+        customClasses = _props$attributes.customClasses,
+        customStyles = _props$attributes.customStyles,
+        className = props.className,
+        setAttributes = props.setAttributes,
+        clientId = props.clientId;
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, {
+      style: {
+        marginBottom: '40px;'
+      }
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
+      onClick: function onClick() {
+        var newBlock = createBlock('laura/content-tab');
+        var block = wp.data.select('core/block-editor').getBlocksByClientId(clientId);
+        wp.data.dispatch('core/editor').insertBlock(newBlock, block[0].innerBlocks.length, clientId);
+      },
+      className: "components-button is-button is-default is-large"
+    }, "Add Content Tab")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "sisense-block-content-tabs  sisense-layout-block ".concat(className)
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "blockTitle"
+    }, "Content Tabs"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
+      template: [['laura/content-tab']],
+      allowedBlocks: ['laura/content-tab']
+    }))];
+  },
+  save: function save(props) {
+    var _props$attributes2 = props.attributes,
+        customClasses = _props$attributes2.customClasses,
+        customStyles = _props$attributes2.customStyles;
+    var styles = Object.values(customStyles).toString(),
+        classes = Object.values(customClasses).filter(Boolean).join(" ");
+    if (styles.length === 0) styles = false;
+    if (classes.lenth === 0) classes = false;
+    classes = "row ".concat(classes);
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: classes,
+      style: styles
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null));
   }
 });
 
@@ -1045,6 +1258,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./container */ "./src/container.js");
 /* harmony import */ var _row__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./row */ "./src/row.js");
 /* harmony import */ var _column__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./column */ "./src/column.js");
+/* harmony import */ var _content_tab__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./content-tab */ "./src/content-tab.js");
+/* harmony import */ var _content_tabs__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./content-tabs */ "./src/content-tabs.js");
+
+
 
 
 
@@ -1247,7 +1464,8 @@ registerBlockType('laura/row', {
         var newBlock = createBlock('laura/column');
         var row = wp.data.select('core/block-editor').getBlocksByClientId(clientId);
         wp.data.dispatch('core/editor').insertBlock(newBlock, row[0].innerBlocks.length, clientId);
-      }
+      },
+      className: "components-button is-button is-default is-large"
     }, "Add Column")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
       style: {
         backgroundImage: "url(".concat(bkgImg, ")"),

@@ -8,3 +8,5 @@ import './hero-banner';
 import './container';
 import './row';
 import './column';
+import './content-tab';
+import './content-tabs';

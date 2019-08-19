@@ -161,6 +161,7 @@ registerBlockType('laura/container', {
 
         <InnerBlocks
           template={[['laura/row']]}
+          allowedBlocks={['laura/row']}
         />
       </div>
     ]

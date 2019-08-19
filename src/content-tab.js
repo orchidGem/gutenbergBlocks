@@ -1,5 +1,5 @@
 const { registerBlockType, createBlock } = wp.blocks;
-const { InspectorControls,InnerBlocks,BlockControls,RichText } = wp.editor;
+const { InspectorControls,InnerBlocks,MediaUpload,RichText } = wp.editor;
 const { PanelBody} = wp.components;
 
 registerBlockType('laura/content-tab', {
@@ -20,7 +20,8 @@ registerBlockType('laura/content-tab', {
   // custom attributes
   attributes: {
     icon: {
-      type: 'string'
+      type: 'string',
+      default: 'https://via.placeholder.com/150'
     },
     title: {
       type: 'string'
@@ -50,7 +51,7 @@ registerBlockType('laura/content-tab', {
   edit: props => {
     const {
       attributes: {
-        customClasses, customStyles, title, description
+        customClasses, customStyles, title, description, icon
       },
       className, setAttributes, clientId
     } = props;
@@ -63,10 +64,24 @@ registerBlockType('laura/content-tab', {
       </InspectorControls>,
       <div
         className = {`sisense-block-content-tab  sisense-layout-block ${className}`}
+        style={{textAlign: 'center'}}
       >
         <div className="blockTitle">
           Content Tab
         </div>
+
+        <MediaUpload
+            onSelect={(value) => {setAttributes({icon: value.sizes.full.url})}}
+            value={icon}
+            render={ ({open}) => {
+              return <img
+                      width="150"
+                      src={icon}
+                      onClick={open}
+                      style={{cursor: 'pointer'}}
+                     />;
+            }}
+          />
 
         <RichText
           format='string'

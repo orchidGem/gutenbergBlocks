@@ -711,7 +711,7 @@ var _wp$blocks = wp.blocks,
 var _wp$editor = wp.editor,
     InspectorControls = _wp$editor.InspectorControls,
     InnerBlocks = _wp$editor.InnerBlocks,
-    BlockControls = _wp$editor.BlockControls,
+    MediaUpload = _wp$editor.MediaUpload,
     RichText = _wp$editor.RichText;
 var PanelBody = wp.components.PanelBody;
 registerBlockType('laura/content-tab', {
@@ -730,7 +730,8 @@ registerBlockType('laura/content-tab', {
   // custom attributes
   attributes: {
     icon: {
-      type: 'string'
+      type: 'string',
+      default: 'https://via.placeholder.com/150'
     },
     title: {
       type: 'string'
@@ -759,6 +760,7 @@ registerBlockType('laura/content-tab', {
         customStyles = _props$attributes.customStyles,
         title = _props$attributes.title,
         description = _props$attributes.description,
+        icon = _props$attributes.icon,
         className = props.className,
         setAttributes = props.setAttributes,
         clientId = props.clientId;
@@ -767,10 +769,31 @@ registerBlockType('laura/content-tab', {
         marginBottom: '40px;'
       }
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      className: "sisense-block-content-tab  sisense-layout-block ".concat(className)
+      className: "sisense-block-content-tab  sisense-layout-block ".concat(className),
+      style: {
+        textAlign: 'center'
+      }
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "blockTitle"
-    }, "Content Tab"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
+    }, "Content Tab"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(MediaUpload, {
+      onSelect: function onSelect(value) {
+        setAttributes({
+          icon: value.sizes.full.url
+        });
+      },
+      value: icon,
+      render: function render(_ref) {
+        var open = _ref.open;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+          width: "150",
+          src: icon,
+          onClick: open,
+          style: {
+            cursor: 'pointer'
+          }
+        });
+      }
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
       format: "string",
       tagName: "h3",
       placeholder: "Title",

@@ -294,6 +294,14 @@ function twentynineteen_colors_css_wrap() {
 }
 add_action( 'wp_head', 'twentynineteen_colors_css_wrap' );
 
+
+function cc_mime_types($mimes) {
+  $mimes['svg'] = 'image/svg+xml';
+  return $mimes;
+}
+add_filter('upload_mimes', 'cc_mime_types');
+
+
 /**
  * SVG Icons class.
  */

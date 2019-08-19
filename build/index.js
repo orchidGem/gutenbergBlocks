@@ -731,7 +731,7 @@ registerBlockType('laura/content-tab', {
   attributes: {
     icon: {
       type: 'string',
-      default: 'https://via.placeholder.com/150'
+      default: null
     },
     title: {
       type: 'string'
@@ -751,7 +751,7 @@ registerBlockType('laura/content-tab', {
   getEditWrapperProps: function getEditWrapperProps(attributes) {
     var customClasses = attributes.customClasses;
     return {
-      'data-column-size': 'col-md-4'
+      'data-column-size': 'col-md-6'
     };
   },
   edit: function edit(props) {
@@ -769,13 +769,12 @@ registerBlockType('laura/content-tab', {
         marginBottom: '40px;'
       }
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      className: "sisense-block-content-tab  sisense-layout-block ".concat(className),
-      style: {
-        textAlign: 'center'
-      }
+      className: "sisense-block-content-tab  sisense-layout-block ".concat(className)
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "blockTitle"
-    }, "Content Tab"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(MediaUpload, {
+    }, "Content Tab"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "tab"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(MediaUpload, {
       onSelect: function onSelect(value) {
         setAttributes({
           icon: value.sizes.full.url
@@ -785,12 +784,8 @@ registerBlockType('laura/content-tab', {
       render: function render(_ref) {
         var open = _ref.open;
         return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
-          width: "150",
-          src: icon,
-          onClick: open,
-          style: {
-            cursor: 'pointer'
-          }
+          src: icon ? icon : 'https://via.placeholder.com/150',
+          onClick: open
         });
       }
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
@@ -813,12 +808,21 @@ registerBlockType('laura/content-tab', {
           description: value
         });
       }
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
+      style: {
+        display: 'none !important'
+      },
       template: [['laura/column', {
         customClasses: {
           size: 'col-md-6'
         }
-      }], ['laura/column', {
+      }, [['core/heading', {
+        level: 3,
+        placeholder: 'Enter heading'
+      }], ['core/paragraph', {
+        fontSize: 'large',
+        placeholder: 'Enter sub-heading'
+      }], ['core/paragraph']]], ['laura/column', {
         customClasses: {
           size: 'col-md-6'
         }
@@ -860,10 +864,12 @@ var _wp$editor = wp.editor,
     InspectorControls = _wp$editor.InspectorControls,
     InnerBlocks = _wp$editor.InnerBlocks,
     BlockControls = _wp$editor.BlockControls;
-var PanelBody = wp.components.PanelBody;
+var _wp$components = wp.components,
+    PanelBody = _wp$components.PanelBody,
+    SelectControl = _wp$components.SelectControl;
+var Fragment = wp.element.Fragment;
 registerBlockType('laura/content-tabs', {
   title: 'Content Tabs',
-  description: 'Content Tabs',
   icon: 'format-image',
   category: 'layout',
   supports: {
@@ -874,6 +880,10 @@ registerBlockType('laura/content-tabs', {
   },
   // custom attributes
   attributes: {
+    numTabsPerRow: {
+      type: 'string',
+      default: "3"
+    },
     customClasses: {
       type: 'object',
       default: {}
@@ -887,6 +897,7 @@ registerBlockType('laura/content-tabs', {
     var _props$attributes = props.attributes,
         customClasses = _props$attributes.customClasses,
         customStyles = _props$attributes.customStyles,
+        numTabsPerRow = _props$attributes.numTabsPerRow,
         className = props.className,
         setAttributes = props.setAttributes,
         clientId = props.clientId;
@@ -894,14 +905,32 @@ registerBlockType('laura/content-tabs', {
       style: {
         marginBottom: '40px;'
       }
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
+      style: {
+        marginBottom: '20px'
+      },
       onClick: function onClick() {
         var newBlock = createBlock('laura/content-tab');
         var block = wp.data.select('core/block-editor').getBlocksByClientId(clientId);
         wp.data.dispatch('core/editor').insertBlock(newBlock, block[0].innerBlocks.length, clientId);
       },
       className: "components-button is-button is-default is-large"
-    }, "Add Content Tab")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    }, "Add Content Tab")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(SelectControl, {
+      label: "Number of Tabs per Row",
+      value: numTabsPerRow,
+      options: [{
+        value: "3",
+        label: "3 in a row"
+      }, {
+        value: "4",
+        label: "4 in a row"
+      }],
+      onChange: function onChange(value) {
+        return setAttributes({
+          numTabsPerRow: value
+        });
+      }
+    })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "sisense-block-content-tabs  sisense-layout-block ".concat(className)
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "blockTitle"
@@ -919,10 +948,7 @@ registerBlockType('laura/content-tabs', {
     if (styles.length === 0) styles = false;
     if (classes.lenth === 0) classes = false;
     classes = "row ".concat(classes);
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      className: classes,
-      style: styles
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null));
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null);
   }
 });
 

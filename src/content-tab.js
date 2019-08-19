@@ -21,7 +21,7 @@ registerBlockType('laura/content-tab', {
   attributes: {
     icon: {
       type: 'string',
-      default: 'https://via.placeholder.com/150'
+      default: null
     },
     title: {
       type: 'string'
@@ -44,7 +44,7 @@ registerBlockType('laura/content-tab', {
   getEditWrapperProps( attributes ) {
     const { customClasses } = attributes;
     return {
-      'data-column-size': 'col-md-4'
+      'data-column-size': 'col-md-6'
     }
   },
 
@@ -64,43 +64,50 @@ registerBlockType('laura/content-tab', {
       </InspectorControls>,
       <div
         className = {`sisense-block-content-tab  sisense-layout-block ${className}`}
-        style={{textAlign: 'center'}}
       >
         <div className="blockTitle">
           Content Tab
         </div>
 
-        <MediaUpload
+        <div className="tab">
+          <MediaUpload
             onSelect={(value) => {setAttributes({icon: value.sizes.full.url})}}
             value={icon}
             render={ ({open}) => {
               return <img
-                      width="150"
-                      src={icon}
+                      src={icon ? icon : 'https://via.placeholder.com/150'}
                       onClick={open}
-                      style={{cursor: 'pointer'}}
                      />;
             }}
           />
 
-        <RichText
-          format='string'
-          tagName="h3"
-          placeholder="Title"
-          value={ title }
-          onChange={(value) => {setAttributes({title: value})}}
-        />
-        <RichText
-          format="string"
-          tagName="p"
-          placeholder="Description"
-          value={ description }
-          onChange={(value) => {setAttributes({description: value})}}
-        />
+          <RichText
+            format='string'
+            tagName="h3"
+            placeholder="Title"
+            value={ title }
+            onChange={(value) => {setAttributes({title: value})}}
+          />
+          <RichText
+            format="string"
+            tagName="p"
+            placeholder="Description"
+            value={ description }
+            onChange={(value) => {setAttributes({description: value})}}
+          />
+        </div>
+
 
         <InnerBlocks
+          style={{display: 'none !important'}}
           template={[
-            ['laura/column', { customClasses: {size: 'col-md-6'}}],
+            ['laura/column', { customClasses: {size: 'col-md-6'}},
+              [
+                [ 'core/heading', { level: 3, placeholder: 'Enter heading' } ],
+                [ 'core/paragraph', { fontSize: 'large', placeholder: 'Enter sub-heading' } ],
+                [ 'core/paragraph' ]
+              ]
+            ],
             ['laura/column', { customClasses: {size: 'col-md-6'}}]
           ]}
           allowedBlocks={['laura/column']}

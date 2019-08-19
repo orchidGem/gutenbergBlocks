@@ -89,9 +89,7 @@ function laura_gutenberg_blocks() {
     'gutenberg',
     'container',
     'row',
-    'column',
-    'content-tabs',
-    'content-tab'
+    'column'
   );
 
   foreach ($blocks as $key => $block) {
@@ -118,6 +116,22 @@ function laura_gutenberg_blocks() {
     array(
       'editor_script' => 'laura-blocks',
       'render_callback' => 'render_dynamic_with_inner'
+    )
+  );
+
+  register_block_type(
+    'laura/content-tab',
+    array(
+      'editor_script' => 'laura-blocks',
+      'render_callback' => 'render_content_tab'
+    )
+  );
+
+  register_block_type(
+    'laura/content-tabs',
+    array(
+      'editor_script' => 'laura-blocks',
+      'render_callback' => 'render_content_tabs'
     )
   );
 
@@ -169,6 +183,55 @@ function render_dynamic_with_inner( $attributes, $content ) {
   var_dump($content);
 
 
+  return ob_get_clean();
+
+}
+
+function render_content_tab( $attributes, $content ) {
+
+  ob_start();
+
+  ?>
+
+  <div class="col-xs-12 col-sm-4 info-box">
+
+    <div>
+      <?php if(!is_null($attributes['icon'])) : ?>
+        <img src="<?= $attributes['icon'] ?>" alt="">
+      <?php endif; ?>
+      <h4><?= $attributes['title'] ?></h4>
+      <?php if(!is_null($attributes['description'])) : ?>
+        <p><?= $attributes['description'] ?></p>
+      <?php endif; ?>
+    </div>
+
+    <noscript>
+      <div class="content-tab-details">
+        <?= $content ?>
+      </div>
+    </noscript>
+
+  </div> <!-- .info-box -->
+
+  <?php
+
+  return ob_get_clean();
+
+}
+
+function render_content_tabs( $attributes, $content ) {
+
+  ob_start();
+
+  ?>
+
+  <div class="content-tabs" data-column-size=<?= $attributes['numTabsPerRow'] ?>>
+    <div class="row">
+      <?= $content ?>
+    </div>
+  </div>
+
+  <?php
   return ob_get_clean();
 
 }

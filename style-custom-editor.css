@@ -51,6 +51,26 @@
     flex-flow: wrap;
 }
 
+.sisense-block-content-tab .tab img {
+  display: block;
+  margin: 0 auto 10px auto;
+  height: 150px;
+}
+
+.sisense-block-content-tab .tab h3 {
+  text-align: center;
+}
+
+.sisense-block-content-tab .tab p {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sisense-block-content-tab .tab img {
+  display: block;
+  margin: 10px auto;
+}
+
 .wp-block[data-column-size="col-md-12"]{
     width: 100% !important;
 }

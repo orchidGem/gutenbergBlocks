@@ -163,6 +163,17 @@ registerBlockType('laura/container', {
           template={[['laura/row']]}
           allowedBlocks={['laura/row']}
         />
+
+        <button
+          onClick={ () => {
+            let newBlock = createBlock( 'laura/row' );
+            let container = wp.data.select( 'core/block-editor' ).getBlocksByClientId( clientId );
+            wp.data.dispatch( 'core/editor' ).insertBlock( newBlock,    container[0].innerBlocks.length,clientId);
+          } }
+          className="components-button is-primary is-button is-default is-large btn-add"
+        >
+          Add Row
+        </button>
       </div>
     ]
   },

@@ -12,6 +12,11 @@
     z-index: 10;
 }
 
+.btn-add {
+  margin: 10px auto;
+  display: block;
+}
+
 .sisense-block-section {
     border: 3px dashed #cbcbcb;
 }

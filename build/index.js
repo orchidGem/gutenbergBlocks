@@ -674,7 +674,14 @@ registerBlockType('laura/container', {
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks, {
       template: [['laura/row']],
       allowedBlocks: ['laura/row']
-    }))];
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("button", {
+      onClick: function onClick() {
+        var newBlock = createBlock('laura/row');
+        var container = wp.data.select('core/block-editor').getBlocksByClientId(clientId);
+        wp.data.dispatch('core/editor').insertBlock(newBlock, container[0].innerBlocks.length, clientId);
+      },
+      className: "components-button is-primary is-button is-default is-large btn-add"
+    }, "Add Row"))];
   },
   save: function save(props) {
     var _props$attributes2 = props.attributes,
@@ -1530,7 +1537,14 @@ registerBlockType('laura/row', {
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerBlocks, {
       template: [['laura/column'], ['laura/column']],
       allowedBlocks: ['laura/column']
-    }))];
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("button", {
+      onClick: function onClick() {
+        var newBlock = createBlock('laura/column');
+        var row = wp.data.select('core/block-editor').getBlocksByClientId(clientId);
+        wp.data.dispatch('core/editor').insertBlock(newBlock, row[0].innerBlocks.length, clientId);
+      },
+      className: "components-button is-primary is-button is-default is-large btn-add"
+    }, "Add Column"))];
   },
   save: function save(props) {
     var _props$attributes2 = props.attributes,

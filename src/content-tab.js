@@ -1,4 +1,4 @@
-const { registerBlockType, createBlock } = wp.blocks;
+const { registerBlockType } = wp.blocks;
 const { InspectorControls,InnerBlocks,MediaUpload,RichText } = wp.editor;
 const { PanelBody} = wp.components;
 

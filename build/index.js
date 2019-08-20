@@ -97,6 +97,261 @@ module.exports = _defineProperty;
 
 /***/ }),
 
+/***/ "./src/card.js":
+/*!*********************!*\
+  !*** ./src/card.js ***!
+  \*********************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$editor = wp.editor,
+    MediaUpload = _wp$editor.MediaUpload,
+    RichText = _wp$editor.RichText,
+    URLInput = _wp$editor.URLInput;
+var PanelBody = wp.components.PanelBody;
+registerBlockType('laura/card', {
+  title: 'Card',
+  icon: 'format-image',
+  category: 'layout',
+  parent: ['laura/cards'],
+  supports: {
+    anchor: true,
+    html: false,
+    reusable: false,
+    className: false,
+    inserter: false
+  },
+  // custom attributes
+  attributes: {
+    url: {
+      type: 'string',
+      source: 'attribute',
+      attribute: 'href',
+      selector: 'a'
+    },
+    icon: {
+      type: 'string',
+      default: null
+    },
+    content: {
+      source: 'html',
+      selector: 'p'
+    },
+    cta: {
+      source: 'html',
+      selector: 'span'
+    },
+    customClasses: {
+      type: 'object',
+      default: {}
+    },
+    customStyles: {
+      type: 'object',
+      default: {}
+    }
+  },
+  getEditWrapperProps: function getEditWrapperProps(attributes) {
+    var customClasses = attributes.customClasses;
+    return {
+      'data-column-size': 'col-md-4'
+    };
+  },
+  edit: function edit(props) {
+    var _props$attributes = props.attributes,
+        customClasses = _props$attributes.customClasses,
+        customStyles = _props$attributes.customStyles,
+        icon = _props$attributes.icon,
+        content = _props$attributes.content,
+        cta = _props$attributes.cta,
+        url = _props$attributes.url,
+        className = props.className,
+        setAttributes = props.setAttributes,
+        clientId = props.clientId;
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "sisense-block-card  sisense-layout-block ".concat(className)
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(MediaUpload, {
+      onSelect: function onSelect(value) {
+        setAttributes({
+          icon: value.sizes.full.url
+        });
+      },
+      value: icon,
+      render: function render(_ref) {
+        var open = _ref.open;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+          style: {
+            cursor: 'pointer'
+          },
+          src: icon ? icon : 'https://via.placeholder.com/150',
+          onClick: open
+        });
+      }
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
+      tagName: "p",
+      placeholder: "Description",
+      value: content,
+      onChange: function onChange(value) {
+        setAttributes({
+          content: value
+        });
+      }
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
+      tagName: "span",
+      placeholder: "CTA Text",
+      value: cta,
+      onChange: function onChange(value) {
+        setAttributes({
+          cta: value
+        });
+      }
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(URLInput, {
+      className: "url",
+      value: url,
+      onChange: function onChange(value) {
+        return setAttributes({
+          url: value
+        });
+      }
+    }));
+  },
+  save: function save(props) {
+    var _props$attributes2 = props.attributes,
+        customClasses = _props$attributes2.customClasses,
+        customStyles = _props$attributes2.customStyles,
+        icon = _props$attributes2.icon,
+        content = _props$attributes2.content,
+        cta = _props$attributes2.cta,
+        url = _props$attributes2.url;
+    var styles = Object.values(customStyles).toString(),
+        classes = Object.values(customClasses).filter(Boolean).join(" ");
+    if (styles.length === 0) styles = false;
+    if (classes.lenth === 0) classes = false;
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+      className: "card",
+      href: url
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "icon"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+      src: icon
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText.Content, {
+      tagName: "p",
+      value: content
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText.Content, {
+      tagName: "span",
+      value: cta,
+      className: "cta"
+    }));
+  }
+});
+
+/***/ }),
+
+/***/ "./src/cards.js":
+/*!**********************!*\
+  !*** ./src/cards.js ***!
+  \**********************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+var _wp$blocks = wp.blocks,
+    registerBlockType = _wp$blocks.registerBlockType,
+    createBlock = _wp$blocks.createBlock;
+var _wp$editor = wp.editor,
+    InnerBlocks = _wp$editor.InnerBlocks,
+    InspectorControls = _wp$editor.InspectorControls;
+var _wp$components = wp.components,
+    PanelBody = _wp$components.PanelBody,
+    Tooltip = _wp$components.Tooltip,
+    Dashicon = _wp$components.Dashicon,
+    Button = _wp$components.Button;
+var Fragment = wp.element.Fragment;
+registerBlockType('laura/cards', {
+  title: 'Cards',
+  icon: 'format-image',
+  category: 'layout',
+  supports: {
+    anchor: true,
+    html: false,
+    reusable: false,
+    className: false
+  },
+  // custom attributes
+  attributes: {
+    customClasses: {
+      type: 'object',
+      default: {}
+    },
+    customStyles: {
+      type: 'object',
+      default: {}
+    }
+  },
+  edit: function edit(props) {
+    var _props$attributes = props.attributes,
+        customClasses = _props$attributes.customClasses,
+        customStyles = _props$attributes.customStyles,
+        className = props.className,
+        setAttributes = props.setAttributes,
+        clientId = props.clientId;
+
+    function addBlock() {
+      var newBlock = createBlock('laura/card');
+      var block = wp.data.select('core/block-editor').getBlocksByClientId(clientId);
+      wp.data.dispatch('core/editor').insertBlock(newBlock, block[0].innerBlocks.length, clientId);
+    }
+
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, {
+      style: {
+        marginBottom: '40px;'
+      }
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
+      style: {
+        marginBottom: '20px'
+      },
+      onClick: addBlock,
+      className: "components-button is-button is-default is-large"
+    }, "Add Card")))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "sisense-block-cards sisense-layout-block ".concat(className)
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "blockTitle"
+    }, "Cards", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Tooltip, {
+      text: "Add Card"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
+      onClick: addBlock
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Dashicon, {
+      icon: "plus"
+    })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
+      template: [['laura/card']],
+      allowedBlocks: ['laura/card']
+    }))];
+  },
+  save: function save(props) {
+    var _props$attributes2 = props.attributes,
+        customClasses = _props$attributes2.customClasses,
+        customStyles = _props$attributes2.customStyles;
+    var styles = Object.values(customStyles).toString(),
+        classes = Object.values(customClasses).filter(Boolean).join(" ");
+    if (styles.length === 0) styles = false;
+    if (classes.lenth === 0) classes = false;
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "content-deck"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null));
+  }
+});
+
+/***/ }),
+
 /***/ "./src/child.js":
 /*!**********************!*\
   !*** ./src/child.js ***!
@@ -712,9 +967,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 
-var _wp$blocks = wp.blocks,
-    registerBlockType = _wp$blocks.registerBlockType,
-    createBlock = _wp$blocks.createBlock;
+var registerBlockType = wp.blocks.registerBlockType;
 var _wp$editor = wp.editor,
     InspectorControls = _wp$editor.InspectorControls,
     InnerBlocks = _wp$editor.InnerBlocks,
@@ -1316,6 +1569,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _column__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./column */ "./src/column.js");
 /* harmony import */ var _content_tab__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./content-tab */ "./src/content-tab.js");
 /* harmony import */ var _content_tabs__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./content-tabs */ "./src/content-tabs.js");
+/* harmony import */ var _card__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./card */ "./src/card.js");
+/* harmony import */ var _cards__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./cards */ "./src/cards.js");
+
+
 
 
 

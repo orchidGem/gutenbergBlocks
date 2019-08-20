@@ -76,6 +76,16 @@
   margin: 10px auto;
 }
 
+.sisense-block-cards .blockTitle button {
+  float: right;
+  margin-top: 5px;
+}
+
+.sisense-block-cards .editor-block-list__layout.block-editor-block-list__layout{
+    display: flex;
+    flex-flow: wrap;
+}
+
 .wp-block[data-column-size="col-md-12"]{
     width: 100% !important;
 }

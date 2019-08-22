@@ -1,6 +1,6 @@
-const { registerBlockType } = wp.blocks;
+const { registerBlockType, createBlock } = wp.blocks;
 const { InspectorControls,InnerBlocks,MediaUpload,RichText } = wp.editor;
-const { PanelBody} = wp.components;
+const { PanelBody, Button, Tooltip, Dashicon } = wp.components;
 
 registerBlockType('laura/content-tab', {
 
@@ -56,17 +56,39 @@ registerBlockType('laura/content-tab', {
       className, setAttributes, clientId
     } = props;
 
+    function addBlock() {
+      let newBlock = createBlock( 'laura/column' );
+      let block = wp.data.select( 'core/block-editor' ).getBlocksByClientId( clientId );
+      wp.data.dispatch( 'core/editor' ).insertBlock( newBlock, block[0].innerBlocks.length,clientId);
+    }
+
     return [
 
       <InspectorControls style={{ marginBottom: '40px;' }}>
+        <PanelBody>
 
+            <Button
+              isDefault
+              onClick={addBlock}
+            >
+              Add Column
+            </Button>
 
+        </PanelBody>
       </InspectorControls>,
       <div
         className = {`sisense-block-content-tab  sisense-layout-block ${className}`}
       >
         <div className="blockTitle">
           Content Tab
+          <Tooltip text="Add Column">
+            <Button
+              style={{float: 'right', marginTop: '5px'}}
+              onClick={addBlock}
+            >
+              <Dashicon icon="plus"/>
+            </Button>
+        	</Tooltip>
         </div>
 
         <div className="tab">

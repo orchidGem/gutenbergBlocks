@@ -1574,6 +1574,64 @@ registerBlockType('laura/hero-banner', {
 
 /***/ }),
 
+/***/ "./src/image-group.js":
+/*!****************************!*\
+  !*** ./src/image-group.js ***!
+  \****************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+var registerBlockType = wp.blocks.registerBlockType;
+var InnerBlocks = wp.editor.InnerBlocks;
+registerBlockType('laura/image-group', {
+  title: 'Image Group',
+  icon: 'images-alt',
+  category: 'common',
+  supports: {
+    anchor: true,
+    html: false,
+    reusable: false,
+    className: false
+  },
+  // custom attributes
+  attributes: {
+    customClasses: {
+      type: 'object',
+      default: {
+        style: ''
+      }
+    }
+  },
+  edit: function edit(props) {
+    var _props$attributes = props.attributes,
+        customClasses = _props$attributes.customClasses,
+        customStyles = _props$attributes.customStyles,
+        className = props.className,
+        setAttributes = props.setAttributes,
+        clientId = props.clientId;
+    return [Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "sisense-block-image-group ".concat(className)
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks, {
+      template: [['core/image'], ['core/image'], ['core/image']],
+      allowedBlocks: ['core/image']
+    }))];
+  },
+  save: function save(props) {
+    var customClasses = props.attributes.customClasses;
+    var classes = Object.values(customClasses).filter(Boolean).join(" ");
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "image-group ".concat(classes)
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InnerBlocks.Content, null));
+  }
+});
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -1598,6 +1656,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _card__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./card */ "./src/card.js");
 /* harmony import */ var _cards__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./cards */ "./src/cards.js");
 /* harmony import */ var _link_button__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./link-button */ "./src/link-button.js");
+/* harmony import */ var _image_group__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./image-group */ "./src/image-group.js");
+
 
 
 

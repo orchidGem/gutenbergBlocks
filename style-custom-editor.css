@@ -134,3 +134,8 @@
   background: #000;
   color: #fff;
 }
+
+
+.sisense-block-image-group .editor-block-list__layout > div {
+  width: 260px;
+}

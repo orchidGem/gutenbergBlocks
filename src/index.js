@@ -13,3 +13,4 @@ import './content-tabs';
 import './card';
 import './cards';
 import './link-button';
+import './image-group';

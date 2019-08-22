@@ -253,7 +253,6 @@ function render_hero_banner( $attributes, $content ) {
 
 function register_acf_block_types() {
 
-    // register a testimonial block.
     acf_register_block_type(array(
         'name'              => 'cta-blocks',
         'title'             => __('CTA Blocks'),
@@ -262,6 +261,16 @@ function register_acf_block_types() {
         'category'          => 'formatting',
         'icon'              => 'admin-comments',
         'keywords'          => array( 'cta' ),
+    ));
+
+    acf_register_block_type(array(
+        'name'              => 'dashboard-example-lightbox',
+        'title'             => __('Dashboard Example Lightbox'),
+        'description'       => __('Dashboard Example Lightbox'),
+        'render_template'   => 'template-parts/blocks/dashboard-example-lightbox.php',
+        'category'          => 'formatting',
+        'icon'              => 'admin-comments',
+        'keywords'          => array( 'dashboard', 'example', 'lightbox' ),
     ));
 }
 

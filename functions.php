@@ -336,3 +336,24 @@ require get_template_directory() . '/inc/customizer.php';
  * Customizer Gutenberg blocks.
  */
 require get_template_directory() . '/inc/gutenberg.php';
+
+
+
+
+function create_posttype() {
+
+    register_post_type( 'dashboard-example',
+    // CPT Options
+        array(
+            'labels' => array(
+                'name' => __( 'Dashboard Example' ),
+                'singular_name' => __( 'Dashboard Example' )
+            ),
+            'public' => true,
+            'has_archive' => true,
+            'rewrite' => array('slug' => 'dashboard-example'),
+        )
+    );
+}
+// Hooking up our function to theme setup
+add_action( 'init', 'create_posttype' );

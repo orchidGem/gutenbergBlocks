@@ -91,7 +91,8 @@ function laura_gutenberg_blocks() {
     'row',
     'column',
     'card',
-    'cards'
+    'cards',
+    'link-button'
   );
 
   foreach ($blocks as $key => $block) {

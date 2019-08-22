@@ -12,3 +12,4 @@ import './content-tab';
 import './content-tabs';
 import './card';
 import './cards';
+import './link-button';

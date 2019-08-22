@@ -97,3 +97,40 @@
 .wp-block[data-column-size="col-md-4"]{
     width: 33.33333% !important;
 }
+
+
+
+
+.action-btn {
+  background: #ffcb05;
+  border: 1px solid transparent;
+  color: #000;
+  border-radius: 4px;
+  padding: 14px 18px;
+
+  font-size: 18px;
+  line-height: 30px;
+  font-weight: 400;
+
+  width: 260px;
+  display: inline-block;
+  margin: 18px auto;
+  text-align: center;
+  white-space: inherit;
+}
+
+.action-btn.btn-trans {
+  background: transparent;
+  border: 1px solid #000;
+}
+
+.action-btn.btn-white {
+  background: #fff;
+  color: #000;
+  border: 1px solid transparent;
+}
+
+.action-btn.btn-black {
+  background: #000;
+  color: #fff;
+}

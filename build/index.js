@@ -1357,6 +1357,108 @@ registerBlockType('laura/custom-cta', {
 
 /***/ }),
 
+/***/ "./src/customAttributes/index.js":
+/*!***************************************!*\
+  !*** ./src/customAttributes/index.js ***!
+  \***************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+
+
+/**
+ * WordPress Dependencies
+ */
+var __ = wp.i18n.__;
+var addFilter = wp.hooks.addFilter;
+var Fragment = wp.element.Fragment;
+var InspectorAdvancedControls = wp.editor.InspectorAdvancedControls;
+var createHigherOrderComponent = wp.compose.createHigherOrderComponent;
+/**
+ * Add custom attribute for mobile visibility.
+ *
+ * @param {Object} settings Settings for the block.
+ *
+ * @return {Object} settings Modified settings.
+ */
+
+function addAttributes(settings) {
+  if (typeof settings.attributes !== 'undefined') {
+    settings.attributes = Object.assign(settings.attributes, {
+      advancedAttributes: {
+        type: 'string'
+      }
+    });
+  }
+
+  return settings;
+}
+/**
+ * Add mobile visibility controls on Advanced Block Panel.
+ *
+ * @param {function} BlockEdit Block edit component.
+ *
+ * @return {function} BlockEdit Modified block edit component.
+ */
+
+
+var withAdvancedControls = createHigherOrderComponent(function (BlockEdit) {
+  return function (props) {
+    var name = props.name,
+        attributes = props.attributes,
+        setAttributes = props.setAttributes,
+        isSelected = props.isSelected;
+    var advancedAttributes = attributes.advancedAttributes;
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Fragment, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(BlockEdit, props), isSelected && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorAdvancedControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("label", {
+      htmlFor: "advancedAttributes"
+    }, "Advanced Attributes"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
+      type: "text",
+      value: advancedAttributes,
+      placeholder: "data-custom=a data-test=ie",
+      onChange: function onChange(e) {
+        return setAttributes({
+          advancedAttributes: e.target.value
+        });
+      }
+    })));
+  };
+}, 'withAdvancedControls');
+/**
+ * Add custom element class in save element.
+ *
+ * @param {Object} extraProps     Block element.
+ * @param {Object} blockType      Blocks object.
+ * @param {Object} attributes     Blocks attributes.
+ *
+ * @return {Object} extraProps Modified block element.
+ */
+
+function applyExtraClass(extraProps, blockType, attributes) {
+  var advancedAttributes = attributes.advancedAttributes;
+
+  if (typeof advancedAttributes !== 'undefined') {
+    var attrsArray = advancedAttributes.split(" ");
+    attrsArray.forEach(function (attr) {
+      var attrArray = attr.split("=");
+      extraProps["".concat(attrArray[0])] = attrArray[1];
+    });
+  }
+
+  return extraProps;
+} //add filters
+
+
+addFilter('blocks.registerBlockType', 'editorskit/custom-attributes', addAttributes);
+addFilter('editor.BlockEdit', 'editorskit/custom-advanced-control', withAdvancedControls);
+addFilter('blocks.getSaveContent.extraProps', 'editorskit/applyExtraClass', applyExtraClass);
+addFilter('blocks.getSaveContent.extraProps', 'editorskit/applyExtraClass', applyExtraClass);
+
+/***/ }),
+
 /***/ "./src/dynamicBlock.js":
 /*!*****************************!*\
   !*** ./src/dynamicBlock.js ***!
@@ -1641,22 +1743,24 @@ registerBlockType('laura/image-group', {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _cta__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cta */ "./src/cta.js");
-/* harmony import */ var _section__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./section */ "./src/section.js");
-/* harmony import */ var _child__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./child */ "./src/child.js");
-/* harmony import */ var _parent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./parent */ "./src/parent.js");
-/* harmony import */ var _dynamicBlock__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./dynamicBlock */ "./src/dynamicBlock.js");
-/* harmony import */ var _dynamicBlockWithInnerBlocks__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./dynamicBlockWithInnerBlocks */ "./src/dynamicBlockWithInnerBlocks.js");
-/* harmony import */ var _hero_banner__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./hero-banner */ "./src/hero-banner.js");
-/* harmony import */ var _container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./container */ "./src/container.js");
-/* harmony import */ var _row__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./row */ "./src/row.js");
-/* harmony import */ var _column__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./column */ "./src/column.js");
-/* harmony import */ var _content_tab__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./content-tab */ "./src/content-tab.js");
-/* harmony import */ var _content_tabs__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./content-tabs */ "./src/content-tabs.js");
-/* harmony import */ var _card__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./card */ "./src/card.js");
-/* harmony import */ var _cards__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./cards */ "./src/cards.js");
-/* harmony import */ var _link_button__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./link-button */ "./src/link-button.js");
-/* harmony import */ var _image_group__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./image-group */ "./src/image-group.js");
+/* harmony import */ var _customAttributes_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./customAttributes/index */ "./src/customAttributes/index.js");
+/* harmony import */ var _cta__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./cta */ "./src/cta.js");
+/* harmony import */ var _section__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./section */ "./src/section.js");
+/* harmony import */ var _child__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./child */ "./src/child.js");
+/* harmony import */ var _parent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./parent */ "./src/parent.js");
+/* harmony import */ var _dynamicBlock__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./dynamicBlock */ "./src/dynamicBlock.js");
+/* harmony import */ var _dynamicBlockWithInnerBlocks__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./dynamicBlockWithInnerBlocks */ "./src/dynamicBlockWithInnerBlocks.js");
+/* harmony import */ var _hero_banner__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./hero-banner */ "./src/hero-banner.js");
+/* harmony import */ var _container__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./container */ "./src/container.js");
+/* harmony import */ var _row__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./row */ "./src/row.js");
+/* harmony import */ var _column__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./column */ "./src/column.js");
+/* harmony import */ var _content_tab__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./content-tab */ "./src/content-tab.js");
+/* harmony import */ var _content_tabs__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./content-tabs */ "./src/content-tabs.js");
+/* harmony import */ var _card__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./card */ "./src/card.js");
+/* harmony import */ var _cards__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./cards */ "./src/cards.js");
+/* harmony import */ var _link_button__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./link-button */ "./src/link-button.js");
+/* harmony import */ var _image_group__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./image-group */ "./src/image-group.js");
+
 
 
 

@@ -1,3 +1,4 @@
+import './customAttributes/index';
 import './cta';
 import './section';
 import './child';
